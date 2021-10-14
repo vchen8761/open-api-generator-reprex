@@ -1,0 +1,161 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: Actuator
+  description: Monitor and interact
+  externalDocs:
+    description: Spring Boot Actuator Web API Documentation
+    url: https://docs.spring.io/spring-boot/docs/current/actuator-api/html/
+paths:
+  /management/loggers/{name}:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'loggers-name'
+      operationId: handle_5
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'loggers-name'
+      operationId: handle_0
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /management:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator root web endpoint
+      operationId: links_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    $ref: '#/components/schemas/Link'
+  /management/metrics:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'metrics'
+      operationId: handle_2
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /management/metrics/{requiredMetricName}:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'metrics-requiredMetricName'
+      operationId: handle_3
+      parameters:
+      - name: requiredMetricName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /management/loggers:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'loggers'
+      operationId: handle_4
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /management/info:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'info'
+      operationId: handle_6
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /management/health:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'health'
+      operationId: handle_7
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /management/health/**:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'health-path'
+      operationId: handle_8
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+        templated:
+          type: boolean

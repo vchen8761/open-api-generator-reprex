@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        ext {
+            openApiGeneratorPluginVersion = '5.2.1'
+        }
+        classpath "org.openapitools:openapi-generator-gradle-plugin:${openApiGeneratorPluginVersion}"
+    }
+}
+
+apply plugin: OpenApiGeneratorPlugin
+
+import org.openapitools.generator.gradle.plugin.OpenApiGeneratorPlugin
+
+import java.nio.file.Paths
+import java.util.concurrent.TimeUnit
+
+def apiDocsDir ='api-docs'
+def sdkDir ='sdk'
+
+def cSharpOutputDir = Paths.get(buildDir.toString(), sdkDir, 'csharp-netcore').toString()
+
+task codegenSdkCSharpNetCore(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+    validateSpec = true
+    generatorName ='csharp-netcore'
+    inputSpec = Paths.get(project.rootDir.toString(), 'api-docs.yaml').toString()
+    outputDir = cSharpOutputDir
+    configOptions= [
+            packageVersion  :   '0.0.1',
+            targetFramework :   'netstandard2.0',
+            library         :   'httpclient'
+    ]
+    globalProperties = [
+            apiDocs     :   'false',
+            modelDocs   :   'false',
+            apiTests    :   'false',
+            modelTests  :   'false'
+    ]
+}
